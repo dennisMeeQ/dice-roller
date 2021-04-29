@@ -20,6 +20,7 @@ module.exports = {
     'no-console': 'off',
     'no-use-before-define': 'off',
     'no-plusplus': 'off',
+    'arrow-body-style': 'off',
     'react/jsx-filename-extension': 0,
     'react/jsx-boolean-value': 'off',
     'react/prop-types': [0],
