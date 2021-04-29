@@ -96,7 +96,6 @@ export function Pane({ side, number, sizes, colors }) {
         '--pane-color': colors.body,
         '--border-color': colors.border,
       }}
-      key={number}
     >
       {dots.map((position) => (
         <Dot

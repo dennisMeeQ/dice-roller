@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { getRandomSixSidedDieValue } from '../../lib/rng';
 import { getSixSidedDieTransitions } from '../../lib/dice';
-import { DICE_COLORS } from '../../constants';
+import { DICE_COLORS_SETS } from '../../constants';
 
 import { Pane } from './Pane';
 
@@ -38,7 +38,7 @@ export function SixSidedDie({ size = 'medium', color = 'red' }) {
   };
 
   const sizes = SIZES[size];
-  const colors = DICE_COLORS[color];
+  const colors = DICE_COLORS_SETS[color];
 
   return (
     <Wrapper
@@ -62,6 +62,7 @@ export function SixSidedDie({ size = 'medium', color = 'red' }) {
               number={pane.number}
               sizes={sizes}
               colors={colors}
+              key={pane.number}
             />
           );
         })}

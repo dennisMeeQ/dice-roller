@@ -1,33 +1,37 @@
 import styled from 'styled-components';
 
-import { SixSidedDie } from '../components/SixSidedDie';
+import { DiceContainer, MaxWidthWrapper, Button } from '../components';
+
+import { AVAILABLE_DICE_COLORS as DICE_COLORS } from '../constants';
+
+const DEFAULT_CONFIG = [
+  { id: 1, size: 'medium', color: DICE_COLORS.black },
+  { id: 2, size: 'medium', color: DICE_COLORS.red },
+  { id: 3, size: 'medium', color: DICE_COLORS.green },
+  { id: 4, size: 'medium', color: DICE_COLORS.yellow },
+  { id: 5, size: 'medium', color: DICE_COLORS.green },
+  { id: 6, size: 'medium', color: DICE_COLORS.black },
+];
 
 export default function Home() {
   return (
-    <Wrapper>
-      {/* <SixSidedDie size="small" color="green" />
-      <SixSidedDie size="medium" color="black" />
-    <SixSidedDie size="large" color="yellow" /> */}
-      <SixSidedDie size="medium" color="black" />
-      <SixSidedDie size="medium" color="red" />
-      <SixSidedDie size="medium" color="green" />
-      <SixSidedDie size="medium" color="yellow" />
-      <SixSidedDie size="medium" color="red" />
-      <SixSidedDie size="medium" color="green" />
-      <SixSidedDie size="medium" color="green" />
-      <SixSidedDie size="medium" color="green" />
-      <SixSidedDie size="medium" color="green" />
-    </Wrapper>
+    <MaxWidthWrapper>
+      <LayoutWrapper>
+        <DiceContainer diceConfig={DEFAULT_CONFIG} />
+        <ActionsLayout>
+          <Button>Shake &apos;em!</Button>
+        </ActionsLayout>
+      </LayoutWrapper>
+    </MaxWidthWrapper>
   );
 }
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 50px;
+const LayoutWrapper = styled.div`
+  padding: 64px 0;
+`;
 
-  padding: 200px 50px 0;
+const ActionsLayout = styled.div`
+  padding: 32px 0;
+  display: flex;
+  justify-content: center;
 `;

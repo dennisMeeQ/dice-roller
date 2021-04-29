@@ -46,7 +46,20 @@ const GlobalStyles = createGlobalStyle`
 
 const theme = {
   colors: {
-    primary: '#0070f3',
+    primary: {
+      main: 'hsl(28deg 97% 49%)',
+      dark: 'hsl(28deg 97% 40%)',
+      darker: 'hsl(28deg 97% 33%)',
+      text: 'hsl(0deg 0% 100%)',
+    },
+    secondary: {
+      main: 'hsl(68deg 90% 43%)',
+      dark: 'hsl(68deg 90% 30%)',
+      darker: 'hsl(68deg 90% 20%)',
+      text: 'hsl(0deg 0% 100%)',
+    },
+    accent: 'hsl(8deg 89% 65%)',
+    dark: 'hsl(32deg 32% 10%)',
   },
 };
 

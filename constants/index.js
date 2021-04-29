@@ -1,4 +1,4 @@
-export { DICE_COLORS } from './color';
+export { DICE_COLORS_SETS, AVAILABLE_DICE_COLORS } from './color';
 
 export const MIN_X_REVOLUTIONS = -5;
 export const MAX_X_REVOLUTIONS = 5;

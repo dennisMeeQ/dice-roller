@@ -1,4 +1,4 @@
-export const DICE_COLORS = {
+export const DICE_COLORS_SETS = {
   red: {
     body: 'hsla(0deg 85% 50% / 80%)',
     border: 'hsl(0deg 74% 39%)',
@@ -19,4 +19,11 @@ export const DICE_COLORS = {
     border: 'hsl(127deg 63% 40%)',
     dots: 'hsl(0deg 0% 100%)',
   },
+};
+
+export const AVAILABLE_DICE_COLORS = {
+  red: 'red',
+  black: 'black',
+  yellow: 'yellow',
+  green: 'green',
 };
