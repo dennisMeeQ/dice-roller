@@ -1,4 +1,5 @@
 /* eslint-disable no-param-reassign */
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { getRandomSixSidedDieValue } from '../../lib/rng';
@@ -25,16 +26,27 @@ const SIZES = {
   },
 };
 
-export function SixSidedDie({ size = 'medium', color = 'red' }) {
+export function SixSidedDie({ size = 'medium', color = 'red', id }) {
+  const [currentTransition, setCurrentTransition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    document.addEventListener('dice:roll', rollTheDie);
+
+    return () => {
+      document.removeEventListener('dice:roll', rollTheDie);
+    };
+  });
+
   const rollTheDie = (event) => {
     event.stopPropagation();
 
     const newSideUp = getRandomSixSidedDieValue();
-    console.log(`new roll: ${newSideUp}`);
+    console.log(`dice #${id}: ${newSideUp}`);
 
     const transition = getSixSidedDieTransitions(newSideUp);
+    setCurrentTransition(transition);
 
-    event.currentTarget.style.transform = `rotateX(${transition.x}deg) rotateY(${transition.y}deg)`;
+    // event.currentTarget.style.transform = `rotateX(${transition.x}deg) rotateY(${transition.y}deg)`;
   };
 
   const sizes = SIZES[size];
@@ -47,7 +59,13 @@ export function SixSidedDie({ size = 'medium', color = 'red' }) {
         '--persp': `${sizes.perspective}px`,
       }}
     >
-      <Cube onClick={(e) => rollTheDie(e)}>
+      <Cube
+        onClick={(e) => rollTheDie(e)}
+        style={{
+          '--x-trans': `${currentTransition.x}deg`,
+          '--y-trans': `${currentTransition.y}deg`,
+        }}
+      >
         {[
           { side: 'front', number: 1 },
           { side: 'back', number: 6 },
@@ -86,8 +104,8 @@ const Cube = styled.div`
   position: absolute;
 
   transform-style: preserve-3d;
-
   transition: transform 3s;
+  transform: rotateX(var(--x-trans)) rotateY(var(--y-trans));
 
   &:hover {
     cursor: pointer;

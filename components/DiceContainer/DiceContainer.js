@@ -12,6 +12,7 @@ export function DiceContainer({ diceConfig, performRoll, setResult }) {
             color={color}
             setResult={setResult}
             performRoll={performRoll}
+            id={id}
             key={id}
           />
         );

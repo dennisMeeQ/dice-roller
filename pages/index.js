@@ -14,12 +14,18 @@ const DEFAULT_CONFIG = [
 ];
 
 export default function Home() {
+  const onClick = () => {
+    const diceRollEvent = new Event('dice:roll');
+
+    document.dispatchEvent(diceRollEvent);
+  };
+
   return (
     <MaxWidthWrapper>
       <LayoutWrapper>
         <DiceContainer diceConfig={DEFAULT_CONFIG} />
         <ActionsLayout>
-          <Button>Shake &apos;em!</Button>
+          <Button onClick={onClick}>Shake &apos;em!</Button>
         </ActionsLayout>
       </LayoutWrapper>
     </MaxWidthWrapper>
