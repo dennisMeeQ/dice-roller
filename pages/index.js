@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 import { DiceContainer, MaxWidthWrapper, Button } from '../components';
+import { IconButton } from '../components/IconButton/IconButton';
 
 import { AVAILABLE_DICE_COLORS as DICE_COLORS } from '../constants';
 
@@ -28,6 +29,7 @@ export default function Home() {
           <Button onClick={onClick}>Shake &apos;em!</Button>
         </ActionsLayout>
       </LayoutWrapper>
+      <IconButton icon="settings" />
     </MaxWidthWrapper>
   );
 }
