@@ -34,6 +34,15 @@ const GlobalStyles = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
   }
 
+html {
+  font-family: 'Roboto', sans-serif;
+
+  height: 100%
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+}
 
   body {
     height: 100%;
@@ -60,6 +69,13 @@ const theme = {
     },
     accent: 'hsl(8deg 89% 65%)',
     dark: 'hsl(32deg 32% 10%)',
+    gray50: 'hsl(0deg 0% 95%)',
+    gray300: 'hsl(0deg 0% 75%)',
+    gray500: 'hsl(0deg 0% 50%)',
+    gray700: 'hsl(0deg 0% 40%)',
+    black: 'hsl(0deg 0% 0%)',
+    transparentGray15: 'hsl(0deg 0% 50% / 0.15)',
+    transparentGray35: 'hsl(0deg 0% 50% / 0.35)',
   },
 };
 

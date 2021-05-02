@@ -5,13 +5,14 @@ const ICONS = {
   settings: Settings,
 };
 
-export function IconButton({ icon }) {
+export function IconButton({ icon, children, ...delegated }) {
   const Icon = ICONS[icon];
 
   return (
     <Wrapper>
-      <Button>
+      <Button {...delegated}>
         <Icon size={32} />
+        {children}
       </Button>
     </Wrapper>
   );

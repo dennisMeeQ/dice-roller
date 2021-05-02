@@ -1,7 +1,12 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
-import { DiceContainer, MaxWidthWrapper, Button } from '../components';
-import { IconButton } from '../components/IconButton/IconButton';
+import {
+  DiceContainer,
+  MaxWidthWrapper,
+  Button,
+  SettingsDialog,
+} from '../components';
 
 import { AVAILABLE_DICE_COLORS as DICE_COLORS } from '../constants';
 
@@ -15,6 +20,8 @@ const DEFAULT_CONFIG = [
 ];
 
 export default function Home() {
+  const [settings, setSettings] = useState({ dice: DEFAULT_CONFIG });
+
   const onClick = () => {
     const diceRollEvent = new Event('dice:roll');
 
@@ -24,18 +31,24 @@ export default function Home() {
   return (
     <MaxWidthWrapper>
       <LayoutWrapper>
-        <DiceContainer diceConfig={DEFAULT_CONFIG} />
+        <DiceContainer diceConfig={settings.dice} />
         <ActionsLayout>
-          <Button onClick={onClick}>Shake &apos;em!</Button>
+          <Button onClick={onClick}>Roll!</Button>
         </ActionsLayout>
       </LayoutWrapper>
-      <IconButton icon="settings" />
+      <SettingsDialog currentSettings={settings} setSettings={setSettings} />
     </MaxWidthWrapper>
   );
 }
 
 const LayoutWrapper = styled.div`
-  padding: 64px 0;
+  /* padding: 64px 0; */
+
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
 `;
 
 const ActionsLayout = styled.div`
