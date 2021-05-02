@@ -47,9 +47,9 @@ const GlobalStyles = createGlobalStyle`
 const theme = {
   colors: {
     primary: {
-      main: 'hsl(28deg 97% 49%)',
-      dark: 'hsl(28deg 97% 40%)',
-      darker: 'hsl(28deg 97% 33%)',
+      main: 'hsl(33deg 99% 50%)',
+      dark: 'hsl(33deg 99% 40%)',
+      darker: 'hsl(33deg 99% 33%)',
       text: 'hsl(0deg 0% 100%)',
     },
     secondary: {
