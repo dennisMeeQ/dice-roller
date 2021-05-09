@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Dialog } from '@reach/dialog';
 import VisuallyHidden from '@reach/visually-hidden';
@@ -13,16 +13,13 @@ export function SettingsDialog({ currentSettings, setSettings }) {
   const [internalSettings, setInternalSettings] = useState(currentSettings);
   const [showDialog, setShowDialog] = useState(false);
 
+  useEffect(() => {
+    setInternalSettings(currentSettings);
+  }, [currentSettings]);
+
   const open = () => setShowDialog(true);
   const close = () => setShowDialog(false);
   const save = () => {
-    // const testSettings = {
-    //   dice: [
-    //     { id: 1, size: 'medium', color: 'black' },
-    //     { id: 2, size: 'medium', color: 'red' },
-    //   ],
-    // };
-    // setSettings(testSettings);
     setSettings(internalSettings);
     setShowDialog(false);
   };
@@ -42,7 +39,6 @@ export function SettingsDialog({ currentSettings, setSettings }) {
   };
 
   const removeDie = (id) => {
-    console.log(`Removing die ${id}!`);
     const otherDice = internalSettings.dice.filter((die) => die.id !== id);
     setInternalSettings({
       ...internalSettings,
@@ -50,21 +46,46 @@ export function SettingsDialog({ currentSettings, setSettings }) {
     });
   };
 
+  const addDie = () => {
+    const lastId = internalSettings.dice.reduce((acc, curr) => {
+      return Math.max(acc, curr.id);
+    }, 0);
+
+    setInternalSettings({
+      ...internalSettings,
+      dice: [
+        ...internalSettings.dice,
+        {
+          id: lastId + 1,
+          size: 'medium',
+          color: 'black',
+        },
+      ],
+    });
+  };
+
   return (
     <Wrapper>
-      <IconButton icon="settings" onClick={open}>
-        <VisuallyHidden>Open Settings</VisuallyHidden>
-      </IconButton>
-      <StyledDialog isOpen={showDialog} onDismiss={save}>
+      <SettingsButton>
+        <IconButton icon="settings" onClick={open} label="Settings" />
+      </SettingsButton>
+      <StyledDialog
+        isOpen={showDialog}
+        onDismiss={save}
+        aria-labelledby="settings-title"
+      >
         <CloseButton type="button" className="close-button" onClick={close}>
           <IconContainer>
             <VisuallyHidden>Cancel</VisuallyHidden>
             <X aria-hidden size={18} />
           </IconContainer>
         </CloseButton>
-        <Title>Settings</Title>
+        <Title id="settings-title">Settings</Title>
         <SettingsSection>
-          <SectionTitle>Dice</SectionTitle>
+          <TitleBar>
+            <SectionTitle>Dice</SectionTitle>
+            <IconButton icon="add" size={24} onClick={() => addDie()} />
+          </TitleBar>
           {internalSettings.dice.map((die) => {
             return (
               <DiceChooser
@@ -85,6 +106,12 @@ export function SettingsDialog({ currentSettings, setSettings }) {
 }
 
 const Wrapper = styled.div``;
+
+const SettingsButton = styled.div`
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+`;
 
 const StyledDialog = styled(Dialog)`
   position: relative;
@@ -128,6 +155,11 @@ const Title = styled.h2`
 const SettingsSection = styled.section``;
 
 const SectionTitle = styled.h3``;
+
+const TitleBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
 const ButtonBar = styled.div`
   padding-top: 32px;

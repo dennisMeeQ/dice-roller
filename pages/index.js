@@ -1,5 +1,6 @@
-import { useState } from 'react';
 import styled from 'styled-components';
+
+import { useStickyState } from '../lib/useStickyState';
 
 import {
   DiceContainer,
@@ -20,7 +21,10 @@ const DEFAULT_CONFIG = [
 ];
 
 export default function Home() {
-  const [settings, setSettings] = useState({ dice: DEFAULT_CONFIG });
+  const [settings, setSettings] = useStickyState(
+    { dice: DEFAULT_CONFIG },
+    'settings'
+  );
 
   const onClick = () => {
     const diceRollEvent = new Event('dice:roll');

@@ -1,17 +1,29 @@
 import styled from 'styled-components';
-import { Settings } from 'react-feather';
+import { PlusCircle, Settings, Trash2, X } from 'react-feather';
+import VisuallyHidden from '@reach/visually-hidden';
 
 const ICONS = {
   settings: Settings,
+  trash: Trash2,
+  add: PlusCircle,
+  close: X,
 };
 
-export function IconButton({ icon, children, ...delegated }) {
+export function IconButton({
+  icon,
+  children,
+  label,
+  size = 32,
+  // color = 'primary',
+  ...delegated
+}) {
   const Icon = ICONS[icon];
 
   return (
-    <Wrapper>
+    <Wrapper style={{ '--size': `${size}px` }}>
       <Button {...delegated}>
-        <Icon size={32} />
+        <Icon size={size} />
+        <VisuallyHidden>{label}</VisuallyHidden>
         {children}
       </Button>
     </Wrapper>
@@ -19,15 +31,15 @@ export function IconButton({ icon, children, ...delegated }) {
 }
 
 const Wrapper = styled.div`
-  width: 32px;
-  height: 32px;
-
-  position: fixed;
-  right: 16px;
-  bottom: 16px;
+  width: var(--size);
+  height: var(--size);
 `;
 
 const Button = styled.div`
   cursor: pointer;
   color: ${({ theme }) => theme.colors.primary.main};
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary.dark};
+  }
 `;

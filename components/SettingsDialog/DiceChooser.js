@@ -1,13 +1,20 @@
 import styled from 'styled-components';
-import { Trash2 } from 'react-feather';
 
 import { Select } from '../Select';
+import { IconButton } from '../IconButton';
 
 import { AVAILABLE_DICE_COLORS } from '../../constants';
 
-export function DiceChooser({ id, size, color, setDiceConfig, removeDie }) {
+export function DiceChooser({
+  id,
+  size,
+  color,
+  setDiceConfig,
+  removeDie,
+  ...delegated
+}) {
   return (
-    <Wrapper>
+    <Wrapper {...delegated}>
       <Select
         label="Size"
         value={size}
@@ -15,9 +22,15 @@ export function DiceChooser({ id, size, color, setDiceConfig, removeDie }) {
           setDiceConfig({ id, color, size: ev.target.value });
         }}
       >
-        <option value="small">Small</option>
-        <option value="medium">Medium</option>
-        <option value="large">Large</option>
+        <option value="small" id="small">
+          Small
+        </option>
+        <option value="medium" id="medium">
+          Medium
+        </option>
+        <option value="large" id="large">
+          Large
+        </option>
       </Select>
       <Select
         label="Color"
@@ -27,11 +40,15 @@ export function DiceChooser({ id, size, color, setDiceConfig, removeDie }) {
         }}
       >
         {Object.values(AVAILABLE_DICE_COLORS).map((c) => {
-          return <option value={c}>{c}</option>;
+          return (
+            <option value={c} key={c}>
+              {c}
+            </option>
+          );
         })}
       </Select>
-      <IconContainer onClick={() => removeDie(id)}>
-        <Trash2 size={24} />
+      <IconContainer>
+        <IconButton icon="trash" size={24} onClick={() => removeDie(id)} />
       </IconContainer>
     </Wrapper>
   );
@@ -52,8 +69,4 @@ const IconContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-
-  cursor: pointer;
-
-  color: ${({ theme }) => theme.colors.secondary.dark};
 `;
