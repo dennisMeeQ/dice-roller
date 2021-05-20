@@ -9,7 +9,7 @@ import {
   SettingsDialog,
 } from '../components';
 
-import { AVAILABLE_DICE_COLORS as DICE_COLORS } from '../constants';
+import { DICE_COLORS } from '../constants';
 
 const DEFAULT_CONFIG = [
   { id: 1, size: 'medium', color: DICE_COLORS.black },

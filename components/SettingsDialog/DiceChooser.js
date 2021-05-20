@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Select } from '../Select';
 import { IconButton } from '../IconButton';
 
-import { AVAILABLE_DICE_COLORS } from '../../constants';
+import { DICE_COLORS, DICE_SIZES } from '../../constants';
 
 export function DiceChooser({
   id,
@@ -22,15 +22,13 @@ export function DiceChooser({
           setDiceConfig({ id, color, size: ev.target.value });
         }}
       >
-        <option value="small" id="small">
-          Small
-        </option>
-        <option value="medium" id="medium">
-          Medium
-        </option>
-        <option value="large" id="large">
-          Large
-        </option>
+        {Object.values(DICE_SIZES).map((s) => {
+          return (
+            <option value={s.key} key={s.key}>
+              {s.text}
+            </option>
+          );
+        })}
       </Select>
       <Select
         label="Color"
@@ -39,7 +37,7 @@ export function DiceChooser({
           setDiceConfig({ id, color: ev.target.value, size });
         }}
       >
-        {Object.values(AVAILABLE_DICE_COLORS).map((c) => {
+        {Object.values(DICE_COLORS).map((c) => {
           return (
             <option value={c} key={c}>
               {c}

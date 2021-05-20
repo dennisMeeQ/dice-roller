@@ -21,9 +21,24 @@ export const DICE_COLORS_SETS = {
   },
 };
 
-export const AVAILABLE_DICE_COLORS = {
+export const DICE_COLORS = {
   red: 'red',
   black: 'black',
   yellow: 'yellow',
   green: 'green',
+};
+
+export const DICE_SIZES = {
+  small: {
+    key: 'small',
+    text: 'Small',
+  },
+  medium: {
+    key: 'medium',
+    text: 'Medium',
+  },
+  large: {
+    key: 'large',
+    text: 'Large',
+  },
 };
