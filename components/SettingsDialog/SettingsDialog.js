@@ -120,7 +120,7 @@ const StyledDialog = styled(Dialog)`
     hsl(240deg 30% 28% / 25%) 0px 50px 100px -20px,
     hsl(0deg 0% 0% / 30%) 0px 30px 60px -30px;
 
-  @media (max-width: 400px) {
+  @media (max-width: 450px) {
     width: 95vw;
     padding: 1rem;
   }
