@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { PlusCircle, Settings, Trash2, X } from 'react-feather';
-import { VisuallyHidden } from '@reach/visually-hidden';
+import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 
 const ICONS = {
   settings: Settings,
@@ -23,7 +23,7 @@ export function IconButton({
     <Wrapper style={{ '--size': `${size}px` }}>
       <Button {...delegated}>
         <Icon size={size} />
-        <VisuallyHidden>{label}</VisuallyHidden>
+        <VisuallyHidden.Root>{label}</VisuallyHidden.Root>
         {children}
       </Button>
     </Wrapper>

@@ -16,7 +16,7 @@ export function DiceChooser({
 }) {
   return (
     <Wrapper {...delegated}>
-      <ControlsGrid $hasColorPicker={type === 'standard'}>
+      <ControlsGrid>
         <Select
           label="Type"
           value={type}
@@ -49,7 +49,7 @@ export function DiceChooser({
             );
           })}
         </Select>
-        {type === 'standard' ? (
+        {type === 'standard' && (
           <Select
             label="Color"
             value={color}
@@ -65,8 +65,6 @@ export function DiceChooser({
               );
             })}
           </Select>
-        ) : (
-          <Spacer />
         )}
       </ControlsGrid>
       <IconContainer>
@@ -94,22 +92,18 @@ const Wrapper = styled.div`
 `;
 
 const ControlsGrid = styled.div`
-  display: grid;
-  grid-template-columns: ${(props) =>
-    props.$hasColorPicker ? '1fr 1fr 1fr' : '1fr 1fr 1fr'};
+  display: flex;
   gap: 8px;
   align-items: center;
+  flex-wrap: wrap;
 
   @media (max-width: 600px) {
-    grid-template-columns: 1fr;
+    flex-direction: column;
+    align-items: stretch;
   }
 `;
 
-const Spacer = styled.div`
-  @media (max-width: 600px) {
-    display: none;
-  }
-`;
+
 
 const IconContainer = styled.div`
   display: flex;

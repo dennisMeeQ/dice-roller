@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Dialog } from '@reach/dialog';
-import { VisuallyHidden } from '@reach/visually-hidden';
+import * as Dialog from '@radix-ui/react-dialog';
+import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 import { X } from 'react-feather';
-import '@reach/dialog/styles.css';
 
 import { IconButton } from '../IconButton';
 import { Button } from '../Button';
@@ -70,38 +69,42 @@ export function SettingsDialog({ currentSettings, setSettings }) {
       <SettingsButton>
         <IconButton icon="settings" onClick={open} label="Settings" />
       </SettingsButton>
-      <StyledDialog
-        isOpen={showDialog}
-        onDismiss={save}
-        aria-labelledby="settings-title"
-      >
-        <CloseButton type="button" className="close-button" onClick={close}>
-          <IconContainer>
-            <VisuallyHidden>Cancel</VisuallyHidden>
-            <X aria-hidden size={18} />
-          </IconContainer>
-        </CloseButton>
-        <Title id="settings-title">Settings</Title>
-        <SettingsSection>
-          <TitleBar>
-            <SectionTitle>Dice</SectionTitle>
-            <IconButton icon="add" size={24} onClick={() => addDie()} />
-          </TitleBar>
-          {internalSettings.dice.map((die) => {
-            return (
-              <DiceChooser
-                {...die}
-                setDiceConfig={setDiceConfig}
-                removeDie={removeDie}
-                key={die.id}
-              />
-            );
-          })}
-        </SettingsSection>
-        <ButtonBar>
-          <Button onClick={save}>Save</Button>
-        </ButtonBar>
-      </StyledDialog>
+      <Dialog.Root open={showDialog} onOpenChange={setShowDialog}>
+        <Dialog.Portal>
+          <DialogOverlay />
+          <StyledDialogContent aria-describedby={undefined}>
+            <Dialog.Title asChild>
+              <VisuallyHidden.Root>Settings</VisuallyHidden.Root>
+            </Dialog.Title>
+            <CloseButton type="button" className="close-button" onClick={close}>
+              <IconContainer>
+                <VisuallyHidden.Root>Cancel</VisuallyHidden.Root>
+                <X aria-hidden size={18} />
+              </IconContainer>
+            </CloseButton>
+            <Title id="settings-title">Settings</Title>
+            <SettingsSection>
+              <TitleBar>
+                <SectionTitle>Dice</SectionTitle>
+                <IconButton icon="add" size={24} onClick={() => addDie()} />
+              </TitleBar>
+              {internalSettings.dice.map((die) => {
+                return (
+                  <DiceChooser
+                    {...die}
+                    setDiceConfig={setDiceConfig}
+                    removeDie={removeDie}
+                    key={die.id}
+                  />
+                );
+              })}
+            </SettingsSection>
+            <ButtonBar>
+              <Button onClick={save}>Save</Button>
+            </ButtonBar>
+          </StyledDialogContent>
+        </Dialog.Portal>
+      </Dialog.Root>
     </Wrapper>
   );
 }
@@ -114,8 +117,22 @@ const SettingsButton = styled.div`
   bottom: 16px;
 `;
 
-const StyledDialog = styled(Dialog)`
-  position: relative;
+const DialogOverlay = styled(Dialog.Overlay)`
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  inset: 0;
+`;
+
+const StyledDialogContent = styled(Dialog.Content)`
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 1.5rem;
+  border-radius: 6px;
+  width: 90vw;
+  max-width: 550px;
   max-height: 90vh;
   display: flex;
   flex-direction: column;
@@ -125,12 +142,9 @@ const StyledDialog = styled(Dialog)`
     hsl(240deg 30% 28% / 25%) 0px 50px 100px -20px,
     hsl(0deg 0% 0% / 30%) 0px 30px 60px -30px;
 
-  @media (max-width: 450px) {
+  @media (max-width: 550px) {
     width: 95vw;
     padding: 1rem;
-  }
-
-  > [data-reach-dialog-content] {
   }
 `;
 
@@ -144,7 +158,7 @@ const CloseButton = styled.button`
   height: 32px;
 
   position: absolute;
-  top: -8px;
+  top: 8px;
   right: 8px;
 
   cursor: pointer;

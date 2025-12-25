@@ -16,8 +16,18 @@ module.exports = {
       presets: ['@babel/preset-react'],
     },
   },
-  plugins: ['react', 'prettier'],
-  extends: ['airbnb', 'prettier'],
+  plugins: ['react', 'react-hooks', 'prettier'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:react-hooks/recommended',
+    'prettier',
+  ],
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
   rules: {
     'import/prefer-default-export': 'off',
     'prettier/prettier': 'warn',
