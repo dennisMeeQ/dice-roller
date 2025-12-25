@@ -90,21 +90,17 @@ export function Pane({ side, number, sizes, colors }) {
 
   return (
     <Wrapper
-      style={{
-        '--transform': sideStyle.transform,
-        '--pane-size': `${paneSize}px`,
-        '--pane-color': colors.body,
-        '--border-color': colors.border,
-      }}
+      $transform={sideStyle.transform}
+      $paneSize={paneSize}
+      $paneColor={colors.body}
+      $borderColor={colors.border}
     >
       {dots.map((position) => (
         <Dot
-          style={{
-            '--top': position.top,
-            '--left': position.left,
-            '--size': `${dotSize}px`,
-            '--dot-color': colors.dots,
-          }}
+          $top={position.top}
+          $left={position.left}
+          $size={dotSize}
+          $dotColor={colors.dots}
           key={position.top + position.left}
         />
       ))}
@@ -113,29 +109,37 @@ export function Pane({ side, number, sizes, colors }) {
 }
 
 const Wrapper = styled.div`
-  background: var(--pane-color);
+  background: ${(props) => props.$paneColor};
   display: block;
   position: absolute;
-  width: var(--pane-size);
-  height: var(--pane-size);
-  border: 2px solid var(--border-color);
+  top: 0;
+  left: 0;
+  width: ${(props) => props.$paneSize}px;
+  height: ${(props) => props.$paneSize}px;
+  border: 2px solid ${(props) => props.$borderColor};
 
   font-family: Arial, Helvetica, sans-serif;
   font-size: 500%;
   text-align: center;
 
-  transform: var(--transform);
+  transform: ${(props) => props.$transform};
+  -webkit-transform: ${(props) => props.$transform};
+
+  /* Chrome fix: prevent face bleeding */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  pointer-events: auto;
 `;
 
 const Dot = styled.span`
   display: block;
   position: absolute;
-  width: var(--size);
-  height: var(--size);
-  background: var(--dot-color);
+  width: ${(props) => props.$size}px;
+  height: ${(props) => props.$size}px;
+  background: ${(props) => props.$dotColor};
   border-radius: 50%;
   /* box-shadow: inset 0px 1px 7px 2px hsl(0deg 0% 70%); */
 
-  top: var(--top);
-  left: var(--left);
+  top: ${(props) => props.$top};
+  left: ${(props) => props.$left};
 `;

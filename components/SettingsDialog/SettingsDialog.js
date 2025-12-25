@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Dialog } from '@reach/dialog';
-import VisuallyHidden from '@reach/visually-hidden';
+import { VisuallyHidden } from '@reach/visually-hidden';
 import { X } from 'react-feather';
 import '@reach/dialog/styles.css';
 
@@ -28,9 +28,9 @@ export function SettingsDialog({ currentSettings, setSettings }) {
     return dice.sort((a, b) => a.id - b.id);
   };
 
-  const setDiceConfig = ({ id, size, color }) => {
+  const setDiceConfig = ({ id, size, color, type = 'standard' }) => {
     const otherDice = internalSettings.dice.filter((die) => die.id !== id);
-    const sortedDice = sortById([{ id, size, color }, ...otherDice]);
+    const sortedDice = sortById([{ id, size, color, type }, ...otherDice]);
 
     setInternalSettings({
       ...internalSettings,
@@ -59,6 +59,7 @@ export function SettingsDialog({ currentSettings, setSettings }) {
           id: lastId + 1,
           size: 'medium',
           color: 'black',
+          type: 'standard',
         },
       ],
     });
@@ -115,8 +116,12 @@ const SettingsButton = styled.div`
 
 const StyledDialog = styled(Dialog)`
   position: relative;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
 
-  box-shadow: hsl(0deg 0% 100% / 10%) 0px 1px 1px 0px inset,
+  box-shadow:
+    hsl(0deg 0% 100% / 10%) 0px 1px 1px 0px inset,
     hsl(240deg 30% 28% / 25%) 0px 50px 100px -20px,
     hsl(0deg 0% 0% / 30%) 0px 30px 60px -30px;
 
@@ -157,7 +162,11 @@ const Title = styled.h2`
   padding-bottom: 32px;
 `;
 
-const SettingsSection = styled.section``;
+const SettingsSection = styled.section`
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+`;
 
 const SectionTitle = styled.h3``;
 

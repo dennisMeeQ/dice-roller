@@ -19,6 +19,11 @@ export const DICE_COLORS_SETS = {
     border: 'hsl(127deg 63% 40%)',
     dots: 'hsl(0deg 0% 100%)',
   },
+  beige: {
+    body: 'hsl(40deg 30% 80% / 95%)',
+    border: 'hsl(40deg 30% 60%)',
+    dots: 'hsl(0deg 0% 30%)',
+  },
 };
 
 export const DICE_COLORS = {
@@ -26,6 +31,7 @@ export const DICE_COLORS = {
   black: 'black',
   yellow: 'yellow',
   green: 'green',
+  beige: 'beige',
 };
 
 export const DICE_SIZES = {
@@ -40,5 +46,16 @@ export const DICE_SIZES = {
   large: {
     key: 'large',
     text: 'Large',
+  },
+};
+
+export const DICE_TYPES = {
+  standard: {
+    key: 'standard',
+    text: 'Standard',
+  },
+  catan: {
+    key: 'catan',
+    text: 'Catan',
   },
 };

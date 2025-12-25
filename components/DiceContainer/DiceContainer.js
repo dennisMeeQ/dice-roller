@@ -1,13 +1,15 @@
 import styled from 'styled-components';
 
 import { SixSidedDie } from '../SixSidedDie';
+import { CatanDie } from '../CatanDie';
 
 export function DiceContainer({ diceConfig, performRoll, setResult }) {
   return (
     <Wrapper>
-      {diceConfig.map(({ size, color, id }) => {
+      {diceConfig.map(({ size, color, id, type = 'standard' }) => {
+        const DieComponent = type === 'catan' ? CatanDie : SixSidedDie;
         return (
-          <SixSidedDie
+          <DieComponent
             size={size}
             color={color}
             setResult={setResult}
@@ -28,4 +30,12 @@ const Wrapper = styled.main`
   align-items: center;
   flex-wrap: wrap;
   gap: 48px;
+
+  /* Chrome fix: isolate without breaking 3D children */
+  position: relative;
+  isolation: isolate;
+
+  /* Force GPU layer on container */
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
 `;

@@ -12,21 +12,27 @@ const SIZES = {
   small: {
     width: 50,
     perspective: 250,
-    dots: 7,
   },
   medium: {
     width: 100,
     perspective: 500,
-    dots: 15,
   },
   large: {
     width: 200,
     perspective: 1000,
-    dots: 30,
   },
 };
 
-export function SixSidedDie({ size = 'medium', color = 'red', id }) {
+const SYMBOL_MAP = {
+  1: 'pirate',
+  2: 'pirate',
+  3: 'pirate',
+  4: 'city-green',
+  5: 'city-blue',
+  6: 'city-yellow',
+};
+
+export function CatanDie({ size = 'medium', id }) {
   const [currentTransition, setCurrentTransition] = useState({ x: 0, y: 0 });
 
   const rollTheDie = useCallback(
@@ -34,12 +40,10 @@ export function SixSidedDie({ size = 'medium', color = 'red', id }) {
       event.stopPropagation();
 
       const newSideUp = getRandomSixSidedDieValue();
-      console.log(`dice #${id}: ${newSideUp}`);
+      console.log(`catan dice #${id}: ${SYMBOL_MAP[newSideUp]}`);
 
       const transition = getSixSidedDieTransitions(newSideUp);
       setCurrentTransition(transition);
-
-      // event.currentTarget.style.transform = `rotateX(${transition.x}deg) rotateY(${transition.y}deg)`;
     },
     [id]
   );
@@ -53,7 +57,7 @@ export function SixSidedDie({ size = 'medium', color = 'red', id }) {
   }, [rollTheDie]);
 
   const sizes = SIZES[size];
-  const colors = DICE_COLORS_SETS[color];
+  const colors = DICE_COLORS_SETS.beige;
 
   return (
     <Wrapper $paneSize={sizes.width} $persp={sizes.perspective}>
@@ -73,7 +77,7 @@ export function SixSidedDie({ size = 'medium', color = 'red', id }) {
           return (
             <Pane
               side={pane.side}
-              number={pane.number}
+              symbol={SYMBOL_MAP[pane.number]}
               sizes={sizes}
               colors={colors}
               key={pane.number}
@@ -94,8 +98,6 @@ const Wrapper = styled.section`
   -webkit-perspective: ${(props) => props.$persp}px;
   perspective-origin: 50% 80%;
   -webkit-perspective-origin: 50% 80%;
-
-  /* Do NOT add transform here - it breaks perspective! */
 `;
 
 const Cube = styled.div`
@@ -113,7 +115,6 @@ const Cube = styled.div`
   -webkit-transform: rotateX(${(props) => props.$xTrans}deg)
     rotateY(${(props) => props.$yTrans}deg);
 
-  /* Chrome fix: force proper layer without will-change */
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
 

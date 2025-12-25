@@ -14,7 +14,8 @@ const Wrapper = styled.button`
   border-radius: 4px;
   padding: 12px 24px;
 
-  box-shadow: hsl(240deg 30% 28% / 25%) 0px 2px 5px -1px,
+  box-shadow:
+    hsl(240deg 30% 28% / 25%) 0px 2px 5px -1px,
     hsl(0deg 0% 0% / 30%) 0px 1px 3px -1px;
 
   font-size: ${18 / 16}rem;

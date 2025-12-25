@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { PlusCircle, Settings, Trash2, X } from 'react-feather';
-import VisuallyHidden from '@reach/visually-hidden';
+import { VisuallyHidden } from '@reach/visually-hidden';
 
 const ICONS = {
   settings: Settings,

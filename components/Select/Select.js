@@ -4,7 +4,7 @@ import { ChevronDown } from 'react-feather';
 
 import { getDisplayedValue } from './Select.helpers';
 
-export function Select({ label, value, onChange, children }) {
+export function Select({ value, onChange, children }) {
   const displayedValue = getDisplayedValue(value, children);
 
   return (
